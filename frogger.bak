@@ -1,0 +1,84 @@
+;; The first three lines of this file were inserted by DrRacket. They record metadata
+;; about the language level of this file in a form that our tools can easily process.
+#reader(lib "htdp-beginner-reader.ss" "lang")((modname hw06) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
+;Dewey Milton
+;HW04b
+;http://www.radford.edu/~itec380/2017fall-ibarland/Homeworks/structs/structs.html
+
+( define-struct truck (xLocation yLocation speed))
+;  A truck is: 
+; ( make-truck [real] [real] [non-negative real])
+
+;Examples of data:
+
+  ( define t1 ( make-truck 0 0 1))
+  ( define t2 ( make-truck 0 16 2))
+
+; Template
+; func-for-truck : truck -> ???
+; Return ???
+( define ( func-for-truck a-truck)
+          (...( truck-xLocation a-truck)
+           ...( truck-yLocation a-truck)
+           ...( truck-speed a-truck))
+)
+              
+
+  ( check-expect ( move-truck t1) ( make-truck 1 0 1) )
+  ( check-expect ( move-truck t2) ( make-truck 2 16 2))
+
+; move-truck : truck -> truck
+; Returns a truck moved 1 tick position in time increasing x-location by speed
+( define ( move-truck a-truck)
+          ( make-truck 
+                      (+ ( truck-xLocation a-truck) ( truck-speed a-truck))
+                      ( truck-yLocation a-truck)
+                      ( truck-speed a-truck))
+)
+
+(define-struct princess (xLocation yLocation vanishTime) )
+; A princess is :
+; (make-princess [real] [real] [real])
+
+; Examples of data
+
+ (define p1 (make-princess 0 0 30))
+ (define p2 (make-princess 3 20 40))
+
+; template
+; func-for-princess : princess-> ???
+; Return ???
+( define ( func-for-princess a-princess)
+          (...( princess-xLocation a-princess)
+           ...( princess-yLocation a-princess)
+           ...( princess-vanishTime a-princess))
+)
+              
+  ( check-expect ( update-princess p1) ( make-princess 0 0 25) )
+  ( check-expect ( update-princess p2) ( make-princess 3 20 35))
+
+; update-princess : princess -> princess
+; Returns a princess that has an updated vanish time by 1 tick in time reducing vanishTime by 5
+( define ( update-princess a-princess)
+          (make-princess 
+                      ( princess-xLocation a-princess)
+                      ( princess-yLocation a-princess)
+                      (- ( princess-vanishTime a-princess) 5))
+)
+
+
+
+;HW5
+
+
+;Data Def'n
+; A list-of-trucks is :
+; '()
+; (make-cons [truck] [a-list-of-trucks])
+
+;Template
+(define (func-list-of-trucks a-lot)
+        (cond [(empty? a-lot) ...]
+              [(cons? a-lot) (... (first a-lot) (func-list-of-trucks (rest a-lot)))]))
+
+
